@@ -1,16 +1,32 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    {{ blog.title }}
-    {{ blog.text }}
-    {{ blog.created_datetime }}
-    {{ blog.updated_datetime }}
-    <a href="{% url 'blogs:index' %}">トップページに戻る</a>
-</body>
+  </head>
+  <body>
+    <h1 style="text-align: center">{{ blog.title }}</h1>
+    <div style="width: 70%; margin: 0px auto">
+      <div style="margin: 60px 20px">{{ blog.text }}</div>
+      <!-- 追加 -->
+      <div style="text-align: center; margin-top: 50px">
+        <form method="POST" action="{% url 'blogs:delete' blog.id %}">
+          {%csrf_token %}
+          <button
+            class="btn"
+            type="submit"
+            onclick='return confirm("本当
+    に削除しますか?");'
+          >
+            削除
+          </button>
+        </form>
+      </div>
+      <div style="text-align: center; margin-top: 50px">
+        <a href="{% url 'blogs:index' %}">トップページに戻る</a>
+      </div>
+    </div>
+  </body>
 </html>
