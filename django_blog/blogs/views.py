@@ -30,3 +30,21 @@ def delete(request, blog_id):
     blog = Blog.objects.get(id=blog_id)
     blog.delete()
     return redirect('blogs:index')
+
+# 更新処理 GETアクセスとPOSTアクセスの２パターンある
+def edit(request, blog_id):
+    blog = Blog.objects.get(id=blog_id)
+    if request.method == 'POST':
+        # POST送信されてきた場合は入力値を設定
+        form = BlogForm(request.POST, instance=blog)
+        if form.is_valid():
+            form.save()
+            return redirect('blogs:detail', blog_id=blog_id)
+    else:
+        # もともと保存されてあった内容が表⽰するためにinstance=blogを追加する
+        form = BlogForm(instance=blog)
+    return render(request, 'blogs/edit.html', {'form':form, 'blog':blog})
+'''
+ModelFormは、ModelForm(instance=インスタンス) とすることで、
+あらかじめ特定のインスタンスの値を持ったフォームを表⽰させることができる
+'''
