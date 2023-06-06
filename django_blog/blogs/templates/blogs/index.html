@@ -9,6 +9,10 @@
   <body>
     <h1 style="text-align: center">My Blog</h1>
     <div style="width: 70%; margin: 0px auto">
+      <!-- 追加 -->
+      <a href="{% url 'blogs:new' %}">
+        <button class="btn">新規記事作成</button>
+      </a>
       <hr />
       {% for blog in blogs %}
       <div>
